@@ -1,0 +1,29 @@
+# playbook_python_apt.yaml
+---
+- hosts: target
+  sudo: true
+  user: pi
+  tasks:
+
+    - name: install git package from apt
+      apt: pkg=git force=yes # gitを入れたい
+      ignore_errors: True # エラーになっても終了しない
+      register: result # 結果を変数に保存
+
+    - name: update apt
+      # aptモジュールが使えないのでcommandモジュールでapt-get updateを実行
+      command: apt-get update
+      when: result|failed # 結果変数が失敗であれば実行
+
+    - name: Install setuptools
+      # RaspbianシステムPythonはeasy_installも使えないのでpython-setuptoolsを入れる
+      command: apt-get install python-dev python-setuptools -y
+      when: result|failed
+
+    - name: Install pip
+      # easy_installコマンドが使えるようになったので
+      # easy_installモジュールも使えるようになったのでpipを入れる
+      easy_install: name=pip
+
+    - name: Install python-apt
+      pip: name=python-apt

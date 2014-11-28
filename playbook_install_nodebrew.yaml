@@ -1,0 +1,11 @@
+# playbook_install_packages.yaml
+---
+- hosts: target
+  user: pi
+  tasks:
+
+    - name: Install nodebrew
+      command: curl -L git.io/nodebrew | perl - setup
+
+    - name: set path to homebrew
+      command: cat "export PATH=$HOME/.nodebrew/current/bin:$PATH" >> /home/pi/.bashrc

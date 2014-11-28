@@ -1,0 +1,12 @@
+# playbook_apt_get_update_upgrade.yaml
+---
+- hosts: target
+  sudo: true
+  user: pi
+  tasks:
+
+    - name: apt-get update
+      apt: update_cache=yes
+
+    - name: apt-get upgrade
+      apt: upgrade=dist

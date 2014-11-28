@@ -1,0 +1,13 @@
+# playbook_install_packages.yaml
+---
+- hosts: target
+  sudo: true
+  user: pi
+  tasks:
+
+#    - name: Install tightvncserver
+#      apt: name=tightvncserver state=present
+
+#    - name: Install FTP Server
+#      apt:  name=vsftpd state=present
+
